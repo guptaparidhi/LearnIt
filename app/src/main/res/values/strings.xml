@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">QLess</string>
+    <string name="FACEBOOK_APP_ID">2226548270762709</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">05d8dd78d4429ce789ef71482cba1539</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
