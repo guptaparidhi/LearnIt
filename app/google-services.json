@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "419412446894",
+    "firebase_url": "https://learnit-project-1e5c9.firebaseio.com",
+    "project_id": "learnit-project-1e5c9",
+    "storage_bucket": "learnit-project-1e5c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419412446894:android:cb0b12551819a9cb",
+        "android_client_info": {
+          "package_name": "com.paridhigupta.qless"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419412446894-g7172kgk0vi6vv4sap71n3dt5krj005t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.paridhigupta.qless",
+            "certificate_hash": "17da7ceb92709853bce7a1c1b2fd12df127bf439"
+          }
+        },
+        {
+          "client_id": "419412446894-bmqj5bdks1epdcgoqumn19dm4suf8egg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR3UYoi9ZPM_z4JH4Go09HsgmcvFeaczM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419412446894-bmqj5bdks1epdcgoqumn19dm4suf8egg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
