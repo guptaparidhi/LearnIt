@@ -72,6 +72,12 @@ public class HomeActivity extends AppCompatActivity {
                                         if(!userSnapshot.exists()){
                                             showUpdateDialog(account.getPhoneNumber().toString());
                                         }
+                                        else{
+                                            Common.currentUser = userSnapshot.toObject(User.class);
+                                            bottomNavigationView.setSelectedItemId(R.id.action_home);
+                                        }
+                                        if(dialog.isShowing())
+                                            dialog.dismiss();
                                     }
                                 }
                             });
@@ -111,9 +117,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void showUpdateDialog(final String phoneNumber) {
 
-        if(dialog.isShowing())
-            dialog.dismiss();
-
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         bottomSheetDialog.setCancelable(false);
@@ -126,19 +129,28 @@ public class HomeActivity extends AppCompatActivity {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User(edit_name.getText().toString(),
+                if(!dialog.isShowing())
+                    dialog.dismiss();
+                final User user = new User(edit_name.getText().toString(),
                         edit_address.getText().toString(),
                         phoneNumber);
                 userRef.document(phoneNumber).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         bottomSheetDialog.dismiss();
+                        if(dialog.isShowing())
+                            dialog.dismiss();
+
+                        Common.currentUser = user;
+                        bottomNavigationView.setSelectedItemId(R.id.action_home);
                         Toast.makeText(HomeActivity.this, "Thank You!", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         bottomSheetDialog.dismiss();
+                        if(dialog.isShowing())
+                            dialog.dismiss();
                         Toast.makeText(HomeActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
