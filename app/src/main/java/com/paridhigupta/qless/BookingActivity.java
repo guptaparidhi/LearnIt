@@ -78,7 +78,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private void setUpStepView() {
         List<String> stepList = new ArrayList<>();
-        stepList.add("Hotel");
+        stepList.add("Hostel");
         stepList.add("Floor");
         stepList.add("Time");
         stepList.add("Confirm");
