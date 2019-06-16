@@ -1,20 +1,12 @@
 package com.paridhigupta.qless.Model;
 
-public class Floor {
-    private String floor, num, identity;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Floor implements Parcelable {
+    private String floor, floor_id;
 
     public Floor() {
-    }
-
-//    public Floor(String floor, String num, String identity) {
-//        this.floor = floor;
-//        this.num = num;
-//        this.identity = identity;
-//    }
-
-
-    public Floor(String floor) {
-        this.floor = floor;
     }
 
     public String getFloor() {
@@ -25,19 +17,43 @@ public class Floor {
         this.floor = floor;
     }
 
-//    public String getNum() {
-//        return num;
-//    }
-//
-//    public void setNum(String num) {
-//        this.num = num;
-//    }
-//
-//    public String getIdentity() {
-//        return identity;
-//    }
-//
-//    public void setIdentity(String identity) {
-//        this.identity = identity;
-//    }
+    public String getFloor_id() {
+        return floor_id;
+    }
+
+    public void setFloor_id(String floor_id) {
+        this.floor_id = floor_id;
+    }
+
+    public static Creator<Floor> getCREATOR() {
+        return CREATOR;
+    }
+
+    protected Floor(Parcel in) {
+        floor = in.readString();
+        floor_id = in.readString();
+    }
+
+    public static final Creator<Floor> CREATOR = new Creator<Floor>() {
+        @Override
+        public Floor createFromParcel(Parcel in) {
+            return new Floor(in);
+        }
+
+        @Override
+        public Floor[] newArray(int size) {
+            return new Floor[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(floor);
+        dest.writeString(floor_id);
+    }
 }

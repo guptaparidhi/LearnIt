@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.paridhigupta.qless.Adapter.MyFloorAdapter;
+import com.paridhigupta.qless.Common.Common;
 import com.paridhigupta.qless.Common.spacesItemDecoration;
 import com.paridhigupta.qless.Interface.IFloorLoadListener;
 import com.paridhigupta.qless.Interface.IHostelLoadListener;
@@ -125,6 +126,7 @@ public class BookingStep1Fragment extends Fragment implements IHostelLoadListene
 
     private void loadFloorOfHostel(String hostelName) {
         alertDialog.show();
+        Common.hostel = hostelName;
         floorRef = FirebaseFirestore.getInstance()
                 .collection("Hostel")
                 .document(hostelName)
@@ -134,8 +136,11 @@ public class BookingStep1Fragment extends Fragment implements IHostelLoadListene
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<Floor> list = new ArrayList<>();
                 if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot documentSnapshot : task.getResult())
-                        list.add(documentSnapshot.toObject(Floor.class));
+                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                        Floor floor = documentSnapshot.toObject(Floor.class);
+                        floor.setFloor_id(documentSnapshot.getId());
+                        list.add(floor);
+                    }
                     iFloorLoadListener.onIFloorLoadSuccess(list);
                 }
             }
