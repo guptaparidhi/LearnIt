@@ -9,6 +9,34 @@ public class Floor implements Parcelable {
     public Floor() {
     }
 
+    protected Floor(Parcel in) {
+        floor = in.readString();
+        floor_id = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(floor);
+        dest.writeString(floor_id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Floor> CREATOR = new Creator<Floor>() {
+        @Override
+        public Floor createFromParcel(Parcel in) {
+            return new Floor(in);
+        }
+
+        @Override
+        public Floor[] newArray(int size) {
+            return new Floor[size];
+        }
+    };
+
     public String getFloor() {
         return floor;
     }
@@ -25,35 +53,5 @@ public class Floor implements Parcelable {
         this.floor_id = floor_id;
     }
 
-    public static Creator<Floor> getCREATOR() {
-        return CREATOR;
-    }
 
-    protected Floor(Parcel in) {
-        floor = in.readString();
-        floor_id = in.readString();
-    }
-
-    public static final Creator<Floor> CREATOR = new Creator<Floor>() {
-        @Override
-        public Floor createFromParcel(Parcel in) {
-            return new Floor(in);
-        }
-
-        @Override
-        public Floor[] newArray(int size) {
-            return new Floor[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(floor);
-        dest.writeString(floor_id);
-    }
 }

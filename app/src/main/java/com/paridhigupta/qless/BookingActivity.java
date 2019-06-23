@@ -56,6 +56,10 @@ public class BookingActivity extends AppCompatActivity {
         if(Common.step == 3  || Common.step>0){
             Common.step --;
             viewPager.setCurrentItem(Common.step);
+            if(Common.step<3){
+                btn_next_step.setEnabled(true);
+                setColorButton();
+            }
         }
     }
     @OnClick(R.id.btn_next_step)
@@ -73,14 +77,26 @@ public class BookingActivity extends AppCompatActivity {
                 if(Common.currentMachine != null)
                     loadTimeSlotOfMachine(Common.currentMachine.getMachine_id());
             }
+
+            else if(Common.step == 3) {
+                if(Common.currentTimeSlot != -1)
+                    confirmBooking();
+
+            }
             viewPager.setCurrentItem(Common.step);
         }
     }
 
+    private void confirmBooking() {
+        //send broadcast to fragment step 4
+        Intent intent = new Intent(Common.KEY_CONFIRM_BOOKING);
+        localBroadcastManager.sendBroadcast(intent);
+    }
+
     private void loadTimeSlotOfMachine(String machine_id) {
         //Send local Broadcast to fragment step 3
-        Intent i = new Intent(Common.KEY_DISPLAY_TIME_SLOT);
-        localBroadcastManager.sendBroadcast(i);
+        Intent intent = new Intent(Common.KEY_DISPLAY_TIME_SLOT);
+        localBroadcastManager.sendBroadcast(intent);
     }
 
     private void loadMachinesOnFloor(String floor_id) {
@@ -127,6 +143,8 @@ public class BookingActivity extends AppCompatActivity {
                 Common.CurrentFloor = intent.getParcelableExtra(Common.KEY_HOSTEL_FLOOR);
             else if(step == 2)
                 Common.currentMachine = intent.getParcelableExtra(Common.KEY_MACHINE_SELECTED);
+            else if(step == 3)
+                Common.currentTimeSlot = intent.getIntExtra(Common.KEY_TIME_SLOT, -1);
             btn_next_step.setEnabled(true);
             setColorButton();
         }

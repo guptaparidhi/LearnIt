@@ -99,9 +99,9 @@ public class HomeActivity extends AppCompatActivity {
                 if(menuItem.getItemId()==R.id.action_home){
                     fragment = new HomeFragment();
                 }
-                else if(menuItem.getItemId()==R.id.action_shopping){
-                    fragment = new ShoppingFragment();
-                }
+//                else if(menuItem.getItemId()==R.id.action_shopping){
+//                    fragment = new ShoppingFragment();
+//                }
                 return loadFragment(fragment);
             }
         });

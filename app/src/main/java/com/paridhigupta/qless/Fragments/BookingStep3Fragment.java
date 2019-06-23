@@ -41,8 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -58,12 +56,13 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
     AlertDialog dialog;
     Unbinder unbinder;
     LocalBroadcastManager localBroadcastManager;
-    Calendar selected_date;
     @BindView(R.id.recycler_time_slot)
     RecyclerView recycler_time_slot;
     @BindView(R.id.calenderView)
     HorizontalCalendarView calenderView;
     SimpleDateFormat simpleDateFormat;
+    Calendar selected_Date;
+
 
     BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
         @Override
@@ -75,7 +74,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
         }
     };
 // /Hostel/Kaveri/Floor/FREp2qfXg3OZh27QpoiK/WashingMachines/IyZfXqew1ebJYkqyuaI3
-    private void loadAvailableTimeSlotOfMachine(String machine_id, final String format) {
+    private void loadAvailableTimeSlotOfMachine(String machine_id, final String bookDate) {
         dialog.show();
         machineDoc = FirebaseFirestore.getInstance()
                 .collection("Hostel")
@@ -99,7 +98,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
                                 .document(Common.CurrentFloor.getFloor_id())
                                 .collection("WashingMachines")
                                 .document(Common.currentMachine.getMachine_id())
-                                .collection(format);
+                                .collection(bookDate);
 
                         date.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -145,10 +144,8 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
         iTimeSlotLoadListener = this;
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(displayTimeSlot, new IntentFilter(Common.KEY_DISPLAY_TIME_SLOT));
-        simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault());
+        simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");
         dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false).build();
-        selected_date = Calendar.getInstance();
-        selected_date.add(Calendar.DATE, 0);
     }
 
     @Override
@@ -188,8 +185,8 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                if(selected_date.getTimeInMillis() != date.getTimeInMillis()){
-                    selected_date = date;
+                if(Common.currentDate.getTimeInMillis() != date.getTimeInMillis()){
+                    Common.currentDate = date;
                     loadAvailableTimeSlotOfMachine(Common.currentMachine.getMachine_id(),
                             simpleDateFormat.format(date.getTime()));
                 }
@@ -199,7 +196,9 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
 
     @Override
     public void onTimeSlotLoadSuccess(List<TimeSlot> timeSlotList) {
-
+        MyTimeSlotAdapter myTimeSlotAdapter = new MyTimeSlotAdapter(getContext(), timeSlotList);
+        recycler_time_slot.setAdapter(myTimeSlotAdapter);
+        dialog.dismiss();
     }
 
     @Override

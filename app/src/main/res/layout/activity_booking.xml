@@ -17,7 +17,7 @@
         app:sv_selectedStepNumberColor="@color/white"
         app:sv_selectedTextColor="@color/white"
         app:sv_doneCircleColor="@color/colorPrimaryDark"
-        app:sv_doneStepLineColor="@color/colorPrimaryDark"
+        app:sv_doneStepLineColor="@color/white"
         app:sv_doneTextColor="@color/colorAccent"
         android:padding="16dp"
         app:sv_stepPadding="12dp"/>

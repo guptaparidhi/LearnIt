@@ -4,37 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/back_resize">
 
-    <ImageView
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="300dp"
-        android:layout_width="300dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/wa"/>
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:src="@drawable/qless_resize"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QLess"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
     
     <TextView
         android:id="@+id/text_skip"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:text="Just Skip"
-        android:textSize="20sp"
-        app:fontFamily="@font/evident"
-        android:layout_marginBottom="40dp"/>
+        android:textSize="14sp"
+        android:layout_marginBottom="40dp"
+        android:textColorHighlight="@color/black"
+        android:textStyle="italic"/>
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="300dp"
+        android:shadowColor="@color/white"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        app:fontFamily="@font/evident"
-        android:textSize="20sp"
-        android:background="@color/colorPrimary"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:background="@color/black"
         android:layout_above="@+id/text_skip"
         android:text="LOGIN"/>
 

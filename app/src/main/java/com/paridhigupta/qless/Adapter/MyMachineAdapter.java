@@ -54,8 +54,9 @@ public class MyMachineAdapter extends RecyclerView.Adapter<MyMachineAdapter.MyVi
             public void onItemSelectedListener(View view, int pos) {
                 for(CardView cardView : cardViewList)
                     cardView.setCardBackgroundColor(context.getResources().getColor(R.color.white));
-            myViewHolder.card_machine.setCardBackgroundColor(context
-            .getResources().getColor(R.color.light_orange));
+
+                myViewHolder.card_machine.setCardBackgroundColor(context
+                .getResources().getColor(R.color.colorAccent));
 
             //send local Broadcast to enable button next
                 Intent i = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
